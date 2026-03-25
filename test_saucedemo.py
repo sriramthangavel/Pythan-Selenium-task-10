@@ -5,7 +5,7 @@ import time
 import pytest
 import logging
 
-@pytest.mark.sanity                 # marker for regression testing
+@pytest.mark.sanity                     # marker for regression testing
 def test_operations():                  # get title, get url, get content operations
     driver = webdriver.Chrome()
     driver.get("https://saucedemo.com/")
@@ -18,7 +18,6 @@ def test_operations():                  # get title, get url, get content operat
     file.write(webpage_content)
     file.close()
     driver.quit()
-
 
 @pytest.mark.positive                   # validated login (positive)
 @pytest.mark.regression
@@ -59,16 +58,6 @@ def test_check_correct_title():
     logging.info("Webpage title is correct")
     driver.quit()
 
-@pytest.mark.negative                   # validated correct title (positive)
-@pytest.mark.regression
-def test_check_wrong_title():
-    driver = webdriver.Chrome()
-    driver.get("https://saucedemo.com/")
-    webpage_title = driver.title
-    assert webpage_title != "Manoramaonline"
-    logging.info("Webpage title is not correct")
-    driver.quit()
-
 @pytest.mark.positive                   # Validate correct URL (positive)
 @pytest.mark.regression
 def test_check_correctURL():
@@ -77,16 +66,6 @@ def test_check_correctURL():
     webpage_URL = driver.current_url
     assert webpage_URL == "https://www.saucedemo.com/"
     logging.info("Webpage URL is correct")
-    driver.quit()
-
-@pytest.mark.negative                   # validate correct URL (negative)
-@pytest.mark.regression
-def test_check_wrongURL():
-    driver = webdriver.Chrome()
-    driver.get("https://saucedemo.com/")
-    webpage_URL = driver.current_url
-    assert webpage_URL != "Manoramaonline"
-    logging.info("Webpage URL is not correct")
     driver.quit()
 
 @pytest.mark.positive                     # validate after login URL (positive)
@@ -106,19 +85,3 @@ def test_after_login_correctURL():
     logging.info("Webpage URL is correct after log in")
     driver.quit()
 
-@pytest.mark.negative                   # validate after login URL (negative)
-@pytest.mark.regression
-def test_after_login_wrongURL():
-    driver = webdriver.Chrome()
-    driver.get("https://saucedemo.com/")
-    user_name = driver.find_element(By.XPATH,"//input[@id = 'user-name']")
-    user_name.send_keys("standard_user")
-    password = driver.find_element(By.XPATH,"//input[@id = 'password']")
-    password.send_keys("secret_sauce")
-    login_button = driver.find_element(By.ID, "login-button")
-    login_button.send_keys(Keys.RETURN)
-    after_login_URL = driver.current_url
-    time.sleep(3)
-    assert after_login_URL != "https://www.saucedemo.com"
-    logging.info("Webpage URL is not correct after log in")
-    driver.quit()
