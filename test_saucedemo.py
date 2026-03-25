@@ -118,7 +118,7 @@ def test_after_login_wrongURL():
     login_button = driver.find_element(By.ID, "login-button")
     login_button.send_keys(Keys.RETURN)
     after_login_URL = driver.current_url
-    time.sleep(2)
+    time.sleep(3)
     assert after_login_URL != "https://www.saucedemo.com"
     logging.info("Webpage URL is not correct after log in")
     driver.quit()
